@@ -46,6 +46,14 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
+    "setupFiles": [
+      "C:/Users/vansh narang/Desktop/Dev/Lms/Project_LMS/Frontend/app/src/jest.setup.js"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
     "testEnvironment": "jsdom",
     "moduleFileExtensions": [
       "js",
