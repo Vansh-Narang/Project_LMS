@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             fetchBooks()
         } catch (error) {
             toast.error("Book was not able to add!")
-            console.error("Error adding book:", error.response.data.error);
+            console.log("Error adding book:", error.response.data.error);
             //  alert("Failed to add book", error);
         }
     };
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
             setBooks(response.data.Books);
             console.log(response.data.Books)
         } catch (error) {
-            console.error("Error fetching books:", error);
+            console.log("Error fetching books:", error);
         }
     };
 
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
             console.log(response.data.message);
             setRequests(response.data.message);
         } catch (error) {
-            console.error("Error fetching requests:", error);
+            console.log("Error fetching requests:", error);
         }
     };
     const removeBook = async (id) => {
@@ -144,7 +144,7 @@ const AdminDashboard = () => {
             toast.success("Book removed successfully!")
             fetchBooks();
         } catch (error) {
-            console.error("Error removing book:", error.response.data.error);
+            console.log("Error removing book:", error.response.data.error);
             toast.error("Book was not able to remove!")
         }
     };
@@ -162,13 +162,13 @@ const AdminDashboard = () => {
             fetchBooks();
         } catch (error) {
             toast.error(error.response.data.Message)
-            console.error("Error approving request:", error.response.data.Message);
+            console.log("Error approving request:", error.response.data.Message);
         }
     };
 
     const rejectRequest = async (id) => {
         try {
-            await axios.put(`http://localhost:8000/api/admin/${id}/reject`,{},{
+            await axios.put(`http://localhost:8000/api/admin/${id}/reject`, {}, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -177,7 +177,7 @@ const AdminDashboard = () => {
             toast.success("Book request rejected")
             fetchRequests();
         } catch (error) {
-            console.error("Error rejecting request:", error.response.data.message);
+            console.log("Error rejecting request:", error.response.data.message);
         }
     };
     const handleSubmission = async (e) => {
@@ -225,7 +225,7 @@ const AdminDashboard = () => {
                             <input type="text" name="authors" placeholder="Authors" onChange={handleChange} required />
                             <input type="text" name="publisher" placeholder="Publisher" onChange={handleChange} required />
                             <input type="number" name="version" placeholder="Version" onChange={handleChange} required />
-                            <button type="submit">Add Book</button>
+                            <button type="submit" role="add book">Add Book</button>
                             <button type="button" onClick={closeAddBookModal}>Close</button>
                         </form>
                     </div>
@@ -241,7 +241,7 @@ const AdminDashboard = () => {
                 <input type="number" name="version" placeholder="Version" onChange={handleChange} required />
                 <button type="submit">Add Book</button>
             </form> */}
-              <h2>Manage Requests</h2>
+            <h2>Manage Requests</h2>
             <ul>
                 {requests.map((req, index) => (
                     <li key={index}>
@@ -252,8 +252,8 @@ const AdminDashboard = () => {
                 ))}
             </ul>
             <div className="div-list-book">
-            <h2>List Books</h2>
-            <button className="" onClick={handleAddBookModal}>Add Book</button>
+                <h2>List Books</h2>
+                <button className="" onClick={handleAddBookModal}>Add Book</button>
             </div>
             {showUpdatedModal && (
                 <div className="modal">
@@ -311,7 +311,7 @@ const AdminDashboard = () => {
                 ))}
             </ul>
 
-          
+
             <Toaster
                 position="top-center"
                 reverseOrder={true}

@@ -246,10 +246,10 @@ const OwnerDashboard = () => {
             <div className="library-container">
                 {libraryData.map((lib, index) => (
                     <div key={index} className="library-card">
-                        <p>Name: {lib.name}</p>
-                        <p>ID: {lib.id}</p>
-                        <p>Has {admins.length} admin(s)</p>
-                        {libraryId && (<button className="create-admin" onClick={handleAdminClick}>Create Admin</button>)}
+                        <p>Name: {lib?.name || "Library"}</p>
+                        <p>ID: {lib?.id || 0}</p>
+                        <p>Has {admins?.length || 0} admin(s)</p>
+                        {libraryId || 0 && (<button className="create-admin" onClick={handleAdminClick}>Create Admin</button>)}
                     </div>
                 ))}
             </div>
