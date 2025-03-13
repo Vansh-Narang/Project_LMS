@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             fetchBooks()
         } catch (error) {
             toast.error("Book was not able to add!")
-            console.log("Error adding book:", error.response.data.error);
+            console.error("Error adding book:", error.response.data.error);
             //  alert("Failed to add book", error);
         }
     };
@@ -110,8 +110,9 @@ const AdminDashboard = () => {
                     }
                 }
             );
-            setBooks(response.data.Books);
-            console.log(response.data.Books)
+            response.data?.Books && setBooks(response.data.Books);
+            //  console.log(response.data)
+            //  console.log(response.data?.Books)
         } catch (error) {
             console.log("Error fetching books:", error);
         }
@@ -127,8 +128,8 @@ const AdminDashboard = () => {
                     },
                 }
             );
-            console.log(response.data.message);
-            setRequests(response.data.message);
+            // console.log(response.data.requests);
+            response.data?.requests && setRequests(response.data.requests);
         } catch (error) {
             console.log("Error fetching requests:", error);
         }
@@ -144,7 +145,7 @@ const AdminDashboard = () => {
             toast.success("Book removed successfully!")
             fetchBooks();
         } catch (error) {
-            console.log("Error removing book:", error.response.data.error);
+            console.error("Error removing book:", error.response.data.error);
             toast.error("Book was not able to remove!")
         }
     };
@@ -162,7 +163,7 @@ const AdminDashboard = () => {
             fetchBooks();
         } catch (error) {
             toast.error(error.response.data.Message)
-            console.log("Error approving request:", error.response.data.Message);
+            console.error("Error approving request:", error.response.data.Message);
         }
     };
 
@@ -177,7 +178,7 @@ const AdminDashboard = () => {
             toast.success("Book request rejected")
             fetchRequests();
         } catch (error) {
-            console.log("Error rejecting request:", error.response.data.message);
+            console.error("Error rejecting request:", error.response.data.message);
         }
     };
     const handleSubmission = async (e) => {
@@ -225,7 +226,7 @@ const AdminDashboard = () => {
                             <input type="text" name="authors" placeholder="Authors" onChange={handleChange} required />
                             <input type="text" name="publisher" placeholder="Publisher" onChange={handleChange} required />
                             <input type="number" name="version" placeholder="Version" onChange={handleChange} required />
-                            <button type="submit" role="add book">Add Book</button>
+                            <button type="submit">Add Book</button>
                             <button type="button" onClick={closeAddBookModal}>Close</button>
                         </form>
                     </div>
@@ -241,15 +242,17 @@ const AdminDashboard = () => {
                 <input type="number" name="version" placeholder="Version" onChange={handleChange} required />
                 <button type="submit">Add Book</button>
             </form> */}
-            <h2>Manage Requests</h2>
+            <h2>Requests</h2>
             <ul>
-                {requests.map((req, index) => (
-                    <li key={index}>
-                        {req.reader_id} requested {req.book_id}
-                        <button onClick={() => approveRequest(req.req_id)}>Approve</button>
-                        <button onClick={() => rejectRequest(req.req_id)}>Reject</button>
+                {requests.length > 0 ? (requests.map((req, index) => (
+                    <li key={index} data-testid="request">
+                        Reader Id : {req.reader_id} requested book with ISBN : {req.book_id}
+                        <div className="btn-req">
+                            <button onClick={() => approveRequest(req.req_id)} data-testid="approve">Approve</button>
+                            <button onClick={() => rejectRequest(req.req_id)} data-testid="reject">Reject</button>
+                        </div>
                     </li>
-                ))}
+                ))) : (<div>No requests in the queue</div>)}
             </ul>
             <div className="div-list-book">
                 <h2>List Books</h2>
@@ -300,10 +303,12 @@ const AdminDashboard = () => {
                 {books.map((book) => (
                     <li key={book.isbn} className="li-list">
                         <div className="li-list-div">
-                            <p>Copies {book.available_copies}</p>
-                            <p>Title {book.title} </p>
-                            <p>Author {book.authors}</p>
-                            <p>Version {book.version}</p>
+                            <p>Available copies : {book.available_copies}</p>
+                            <p>ISBN : {book.isbn}</p>
+                            <p>Total Copies : {book.total_copies}</p>
+                            <p>Title : {book.title} </p>
+                            <p>Author : {book.authors}</p>
+                            <p>Version : {book.version}</p>
                         </div>
                         <button onClick={() => handleUpdateBook(book.isbn)}>Update</button>
                         <button onClick={() => removeBook(book.isbn)}>Remove</button>

@@ -134,9 +134,9 @@ const OwnerDashboard = () => {
 
 
         // console.log(response.data.library[0].id)
-        setLibraryData([response.data.library])
-        console.log([response.data.library])
-        setLibraryId(response.data.library)
+        setLibraryData([response.data?.library])
+        console.log(response.data.library)
+        setLibraryId(response.data?.library)
         // console.log(libraryData)
         // const res=await fetch("http://localhost:8000/api/library/getlib",
         //     {
@@ -246,16 +246,16 @@ const OwnerDashboard = () => {
             <div className="library-container">
                 {libraryData.map((lib, index) => (
                     <div key={index} className="library-card">
-                        <p>Name: {lib?.name || "Library"}</p>
-                        <p>ID: {lib?.id || 0}</p>
-                        <p>Has {admins?.length || 0} admin(s)</p>
-                        {libraryId || 0 && (<button className="create-admin" onClick={handleAdminClick}>Create Admin</button>)}
+                        <p>Name: {lib.name}</p>
+                        <p>ID: {lib.id}</p>
+                        <p>Has {admins.length} admin(s)</p>
+                        {libraryId && (<button className="create-admin" onClick={handleAdminClick}>Create Admin</button>)}
                     </div>
                 ))}
             </div>
             <h1 className="dashboard-title">Library Admins</h1>
             <div className="admin-container1">
-                {admins.map((admin, index) => (
+                {admins.length > 0 && admins.map((admin, index) => (
                     <div key={index} className="admin-card">
                         <p>Name: {admin.name}</p>
                         <p>Email: {admin.email}</p>

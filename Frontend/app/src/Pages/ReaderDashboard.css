@@ -16,7 +16,8 @@
 }
 
 .search-container {
-    max-width: 800px;
+    /* max-width: 800px; */
+    width: 900px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,6 +26,14 @@
 
 .book-container {
     align-items: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.read-books-container {
+    /* align-items: center; */
+    justify-content: center;
+    margin: 0px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -41,7 +50,7 @@
     max-width: 100px;
 }
 
-.ul-list-book{
+.ul-list-book {
     list-style: none;
     padding: 0;
     display: grid;
@@ -50,7 +59,7 @@
     margin: 1.5rem;
 }
 
-.li-list-div-book{
+.li-list-div-book {
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
@@ -124,9 +133,11 @@
 .li-list-book button:nth-child(2):hover {
     background-color: var(--danger-hover);
 }
-.heading{
+
+.heading {
     margin-left: 1.5rem;
 }
-.li-list-book button{
+
+.li-list-book button {
     margin: 2px;
 }

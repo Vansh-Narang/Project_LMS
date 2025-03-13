@@ -59,7 +59,7 @@ const Login = () => {
             setTimeout(() => redirectBasedOnRole(response.data.role), 1000);
 
         } catch (error) {
-            //   console.error("Login error:", error);
+            //        console.error("Login error:", error);
 
             if (error.response?.data?.Error) {
                 setError(error.response.data.Error);
@@ -92,10 +92,10 @@ const Login = () => {
                         aria-required="true"
                     />
                 </div>
-
-                <div className="links">
-                    <p>Don't have an account? <Link to="/register">Register</Link></p>
-                </div>
+                <p>Don't have an account ? <Link to={"/register"}>Register</Link></p>
+                {/* <div className="links">
+                    <p><Link to="/register">Register</Link></p>
+                </div> */}
 
                 <button
                     type="submit"

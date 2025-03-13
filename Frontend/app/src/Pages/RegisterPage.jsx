@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         // Handle role change separately
         if (name === 'role') {
             setFormData({
@@ -68,7 +68,7 @@ const RegisterPage = () => {
             setSuccess(true);
             setTimeout(() => navigate("/login"), 2000); // Redirect after 2 sec
         } catch (err) {
-           // console.log(err)
+            // console.log(err)
             const errorMessage = err.response?.data?.Error || "Registration failed";
             setError(errorMessage);
             toast.error(errorMessage);
@@ -150,7 +150,7 @@ const RegisterPage = () => {
                             onChange={handleChange}
                             required
                         >
-                            <option value="" disabled>Select a library</option>
+                            <option value="">Select a library</option>
                             {libraries.map((library) => (
                                 <option key={library.id} value={library.id}>
                                     {library.name}
