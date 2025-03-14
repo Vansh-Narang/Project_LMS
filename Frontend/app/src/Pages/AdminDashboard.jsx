@@ -128,8 +128,8 @@ const AdminDashboard = () => {
                     },
                 }
             );
-            // console.log(response.data.requests);
-            response.data?.requests && setRequests(response.data.requests);
+            console.log(response.data.message);
+            response.data?.message && setRequests(response.data.message);
         } catch (error) {
             console.log("Error fetching requests:", error);
         }
@@ -226,7 +226,7 @@ const AdminDashboard = () => {
                             <input type="text" name="authors" placeholder="Authors" onChange={handleChange} required />
                             <input type="text" name="publisher" placeholder="Publisher" onChange={handleChange} required />
                             <input type="number" name="version" placeholder="Version" onChange={handleChange} required />
-                            <button type="submit">Add Book</button>
+                            <button type="submit" data-testid="add-book-btn">Add Book</button>
                             <button type="button" onClick={closeAddBookModal}>Close</button>
                         </form>
                     </div>

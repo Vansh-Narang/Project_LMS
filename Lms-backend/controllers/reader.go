@@ -60,11 +60,12 @@ func RaiseIssueRequest(c *gin.Context) {
 
 	var book models.BookInventory
 	//Find the book with this above id
-	if err := initializers.DB.Where("isbn=?", isbn).Find(&book).Error; err != nil {
+	if err := initializers.DB.Where("isbn=?", isbn).First(&book).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"Error":   err.Error(),
 			"Message": "Book not with this isbn",
 		})
+		return
 	}
 
 	//If book not available the request must get rejected
@@ -86,6 +87,13 @@ func RaiseIssueRequest(c *gin.Context) {
 	if request.ReaderID == user.ID {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"Message": "The book has been already requested by you",
+		})
+		return
+	}
+	if err := initializers.DB.Where("book_id=? AND request_type=? AND reader_id=?", book.ISBN, "Issued", user.ID).First(&request).Error; err == nil {
+		c.JSON(http.StatusBadGateway, gin.H{
+			// "Error": err.Error(),
+			"Message":"The book has been already issued to you",
 		})
 		return
 	}
@@ -124,11 +132,12 @@ func GetLibraries(c *gin.Context) {
 func GetReturnDate(c *gin.Context) {
 	var book models.IssueRegistry
 	id := c.Param("id")
+	fmt.Println("Id", id)
 
-	if err := initializers.DB.Where("isbn=? AND issue_status=?", id, "Issued").Find(&book).Error; err != nil {
+	if err := initializers.DB.Where("isbn=? AND issue_status=?", id, "Issued").First(&book).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"Error":   err.Error(),
-			"Message": "Couldnt find book with this isbn",
+			"Message": "Book has been deleted or not available",
 		})
 		return
 	}
