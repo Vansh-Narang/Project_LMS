@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from 'react-hot-toast';
+import { toast, Toaster } from "react-hot-toast";
+
 import "./RegisterPage.css";
 
 const API_URL = "http://localhost:8000/api/users/register";
